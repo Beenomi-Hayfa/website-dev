@@ -34,7 +34,7 @@ if (empty($_FILES['images']['name'])) {
 
 
 if (empty($error_code)) {
-    $product_title       = Wo_Secure($_POST['product_title']);
+    $product_type       = Wo_Secure($_POST['product_type']);
     $product_category    = Wo_Secure($_POST['product_category']);
     $product_description = Wo_Secure($_POST['product_description']);
     $product_location    = Wo_Secure($_POST['product_location']);
@@ -84,7 +84,7 @@ if (empty($error_code)) {
         }
         $product_data = array(
             'user_id' => $wo['user']['user_id'],
-            'name' => $product_title,
+            'type' => $product_title,
             'category' => $product_category,
             'sub_category' => $sub_category,
             'description' => $product_description,

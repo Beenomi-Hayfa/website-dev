@@ -28,20 +28,7 @@
 					</select>
 				</div>
 			</div>
-			<div class="col-md-5">
-				<div class="wow_form_fields">
-					<label for="page_sub_category"><?php echo $wo['lang']['sub_category']; ?></label>
-					<select name="page_sub_category" id="page_sub_category">
-						<?php
-						if (!empty($wo['page_sub_categories'][$wo['setting']['page_category']])) {
-						foreach ($wo['page_sub_categories'][$wo['setting']['page_category']] as $id => $sub_category) {
-							$sub_selected = ($sub_category['id'] == $wo['setting']['sub_category']) ? ' selected' : '' ;
-						 ?>
-							<option value="<?php echo $sub_category['id']?>" <?php echo $sub_selected; ?>><?php echo $sub_category['lang']; ?></option>
-						<?php } } ?>
-					</select>
-				</div>
-			</div>
+		
 		</div>
 		<div class="wow_form_fields">
 			<label for="page_name"><?php echo $wo['lang']['page'];?> URL</label>

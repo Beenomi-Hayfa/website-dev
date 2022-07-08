@@ -43,16 +43,25 @@
 					</ul>
 				</div>
 			</div>
+
 			<div class="col-md-6 wow_frnd_field">
-				<h4><?php echo $wo['lang']['status']; ?></h4>
-				<div class="nearby-users-gender-collapse nearby-users-status-collapse">
+				<h4> Plan filter </h4>
+				<div class="nearby-users-gender-cont">
 					<ul class="friends_nearby_status_ul">
-						<li class="active" data-nearby-user-status="2"><?php echo $wo['lang']['all'];?></li>
-						<li data-nearby-user-status="1"><?php echo $wo['lang']['online'];?></li>
-						<li data-nearby-user-status="0"><?php echo $wo['lang']['offline'];?></li>
+						<li class="active" data-gender="all"><?php echo $wo['lang']['all'];?></li>
+						<?php foreach ($wo['genders'] as $key => $gender) { ?>
+							<?php if ($key == 'male') { ?>
+								<li data-gender="<?php echo($key) ?>"><?php echo $gender;?></li>
+							<?php }elseif ($key == 'female') { ?>
+								<li data-gender="<?php echo($key) ?>"><?php echo $gender;?></li>
+							<?php }else{ ?>
+								<li data-gender="<?php echo($key) ?>"><?php echo $gender;?></li>
+							<?php } ?>
+						<?php } ?>
 					</ul>
 				</div>
 			</div>
+			
 			<div class="col-md-6 wow_frnd_field">
 				<h4><?php echo $wo['lang']['location_dist'];?></h4>
 				<div class="select-nearby-users-distance">
@@ -62,19 +71,7 @@
 					</form>
 				</div>
 			</div>
-			<div class="col-md-6 wow_frnd_field">
-				<div id="search-nearby-users">
-					<h4><?php echo $wo['lang']['relationship']; ?></h4>
-					<div class="nearby-users-gender-collapse nearby-users-relationship-collapse">
-						<ul>
-							<li class="active" data-relation-ship="5"><?php echo $wo['lang']['all'];?></li>
-							<?php foreach ($wo['relationship'] as $relationship_ids => $relationship): ?>
-								<li class="" data-relation-ship="<?php echo $relationship_ids; ?>"><?php echo $relationship;?></li>
-							<?php endforeach; ?>
-						</ul>
-					</div>
-				</div>
-			</div>
+		
 		</div>
 	</div>
 	
@@ -169,12 +166,11 @@
 
 	}
 	function Wo_LoadNearByUsers(self = false){
-		var relship  = $(".nearby-users-relationship-collapse").find('.active').attr('data-relation-ship');
-		var status   = $(".nearby-users-status-collapse").find('.active').attr('data-nearby-user-status');
+	
 		var gender   = $(".nearby-users-gender-cont").find('.active').attr('data-gender');
 		var name     = $("#nearby-username").val();
 		var distance = $("#nearby-users-distance").val();
-		if (!gender && !name && !distance && !relship && !status) { return false;}
+		if (!gender && !name && !distance && !relship) { return false;}
 		if (self) {
 			Wo_progressIconLoader($(self));
 		}
@@ -192,22 +188,12 @@
 				gender:gender,
 				name:name,
 				distance:distance,
-				status:status,
 				relship:relship
 			},
 		})
 		.done(function(data) {
 
-	        if (data['status'] == 200){
-	        	$("#nearby_users_list").html(data.html);
-	        	$("[data-toggle]").tooltip();
-	        	$("#load_more_nearby_users").html('<i class="fa fa-arrow-down progress-icon" data-icon="arrow-down"></i> <?php echo $wo['lang']['load_more']; ?>');
-	        } 
-
-	        else{
-	        	scrollToTop();
-	        	$("#nearby_users_list").html('<h5 class="search-filter-center-text"> <?php echo $wo['lang']['no_users_found']; ?></h5>');
-	        } 
+	    
 	        if (self) {
 				Wo_progressIconLoader($(self));
 			}
@@ -223,13 +209,11 @@
 		
 	}
 	function Wo_LoadMoreNearByUsers(){
-		var relship  = $(".nearby-users-relationship-collapse").find('.active').attr('data-relation-ship');
-		var status   = $(".nearby-users-status-collapse").find('.active').attr('data-nearby-user-status');
 		var after_id = ($(".nearby_user_wrapper_prnt").length > 0) ? $(".nearby_user_wrapper_prnt").last().attr('id') : 0;
 		var gender   = $(".nearby-users-gender-cont").find('.active').attr('data-gender');
 		var name     = $("#nearby-username").val();
 		var distance = $("#nearby-users-distance").val();
-		if (!after_id && !gender && !name && !distance && !status && !relship) { return false;}
+		if (!after_id && !gender && !name && !distance && !relship) { return false;}
 		Wo_progressIconLoader($('#load_more_nearby_users'));
 		$.ajax({
 			url: Wo_Ajax_Requests_File(),
@@ -243,21 +227,13 @@
 				name:name,
 				distance:distance,
 				relship:relship,
-				status:status
+				
 
 			},
 		})
 		.done(function(data) {
 
-	        if (data['status'] == 200){
-	        	$("#nearby_users_list").append(data.html);
-	        	$("[data-toggle]").tooltip();
-	        	$("#load_more_nearby_users").html('<?php echo $wo['lang']['load_more']; ?>');
-	        } 
-
-	        else{
-	        	$("#load_more_nearby_users").html('<?php echo $wo['lang']['no_result']; ?>');
-	        } 
+	       
 		})
 		.fail(function() {
 			console.log("error");
@@ -271,16 +247,7 @@
 			$(this).addClass('active');
 			Wo_LoadNearByUsers();
 		});
-		$("[data-relation-ship]").click(function(event) {
-			$(".nearby-users-relationship-collapse").find('.active').removeClass('active');
-			$(this).addClass('active');
-			Wo_LoadNearByUsers();
-			
-		});
-		$("[data-nearby-user-status]").click(function(event) {
-			$(".nearby-users-status-collapse").find('.active').removeClass('active');
-			$(this).addClass('active');
-			Wo_LoadNearByUsers();
-		});
+	
+		
 	});
 </script>

@@ -32,18 +32,8 @@
 							<?php } ?>
 						</select>
 					</div>
-					<?php if (!empty($wo['page_sub_categories'])) { ?>
-					<div class="wow_form_fields">
-						<label for="page_sub_category"><?php echo $wo['lang']['sub_category']; ?></label>
-						<select name="page_sub_category" id="page_sub_category">
-							<?php
-							if (!empty($wo['page_sub_categories'][array_keys($wo['page_categories'])[0]])) {
-							foreach ($wo['page_sub_categories'][array_keys($wo['page_categories'])[0]] as $id => $sub_category) { ?>
-								<option value="<?php echo $sub_category['id']?>"><?php echo $sub_category['lang']; ?></option>
-							<?php } } ?>
-						</select>
-					</div>
-				    <?php } ?>
+				
+				 
 					<div class="wow_form_fields">
 						<label for="page_description"><?php echo $wo['lang']['page_description']; ?></label>
 						<textarea name="page_description" id="page_description" rows="3"></textarea>

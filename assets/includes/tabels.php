@@ -104,6 +104,7 @@ define('T_REACTIONS', 'Wo_Reactions');
 define('T_STORY_SEEN', 'Wo_Story_Seen');
 define('T_MANAGE_PRO', 'Wo_Manage_Pro');
 define('T_PAGES_CATEGORY', 'Wo_Pages_Categories');
+define('T_FURNITURE_CATEGORY','Wo_Furniture_Categories');
 define('T_GROUPS_CATEGORY', 'Wo_Groups_Categories');
 define('T_BLOGS_CATEGORY', 'Wo_Blogs_Categories');
 define('T_PRODUCTS_CATEGORY', 'Wo_Products_Categories');

@@ -161,8 +161,11 @@ if ((!$wo['loggedin'] || ($wo['loggedin'] && $wo['user']['banned'] != 1))) {
                     case 'group':
                         include('sources/group.php');
                         break;
+
                     case 'create-group':
+                        if (Wo_IsAdmin()) {
                         include('sources/create_group.php');
+                        }
                         break;
                     case 'group-setting':
                         include('sources/group_setting.php');
@@ -606,7 +609,9 @@ if ((!$wo['loggedin'] || ($wo['loggedin'] && $wo['user']['banned'] != 1))) {
                 include('sources/group.php');
                 break;
             case 'create-group':
-                include('sources/create_group.php');
+                if (Wo_IsAdmin()) {
+                    include('sources/create_group.php');
+                    }
                 break;
             case 'group-setting':
                 include('sources/group_setting.php');
